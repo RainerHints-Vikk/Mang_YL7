@@ -247,6 +247,10 @@ def handle_input():
         new_y = player_y - speed * math.sin(player_angle)
         if MAP[int(new_y // TILE_SIZE)][int(new_x // TILE_SIZE)] == '.':
             player_x, player_y = new_x, new_y
+    #ESC nuppu vajutades saab mängu kinni panna
+    if keys[pygame.K_ESCAPE]:
+        pygame.quit()
+
 
     #vastase tuvastamine, kas vastane on mängijale nähtav
 def is_enemy_visible(px, py, enemy_x, enemy_y, pa):
@@ -377,5 +381,6 @@ def main():
 
         pygame.display.flip() # refreshib akna
         clock.tick(FPS) #viib mängu akna refreshi vastavusse ülal toodud FPSi valuega
+
 
 main()
