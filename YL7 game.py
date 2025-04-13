@@ -18,17 +18,17 @@ SCALE = WIDTH // NUM_RAYS  # Width of each vertical strip
 
 # Kaart
 MAP = [
-    '1111111111111111111',
-    '1...........11....1',
-    '1...11...11.......1',
-    '1...1..1......11..1',
-    '1...1..1..111.1...1',
-    '1.....1.......11..1',
-    '1...1.....11......1',
-    '1111111111111111111',
+    '11111111111111111111',
+    '1............1.....1',
+    '1...11...11........1',
+    '1...1..1......11...1',
+    '1...1..1..111.1....1',
+    '1.....1.......11...1',
+    '1...1.....11.......1',
+    '11111111111111111111',
 ]
 
-# Mängija setingud
+#Mängija setingud
 player_x = 100
 player_y = 100
 player_angle = 0
@@ -44,8 +44,10 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 fps = int(clock.get_fps())
+
 #FONT
 font = pygame.font.Font("P2S.ttf", 35)
+
 #muusika importimine
 pygame.mixer.init()
 pygame.mixer.music.load("MUUSIKA.mp3")
@@ -56,11 +58,9 @@ gunshot_sound.set_volume(0.7)
 
 # Load textures
 wall_texture = pygame.image.load('wall.jpeg').convert()
-ceiling_texture = pygame.image.load('ceiling.jpg').convert()
 gun_image = pygame.image.load("gun.png").convert_alpha()
 muzzle_flash = pygame.image.load("Flash.png").convert_alpha()
 wall_texture = pygame.transform.scale(wall_texture, (64, 64))
-ceiling_texture = pygame.transform.scale(ceiling_texture, (164, 164))
 gun_image = pygame.transform.scale(gun_image, (400, 400))
 muzzle_flash = pygame.transform.scale(muzzle_flash, (100, 100))
 TEXTURE_WIDTH, TEXTURE_HEIGHT = wall_texture.get_size()
