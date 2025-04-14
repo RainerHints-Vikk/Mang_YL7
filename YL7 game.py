@@ -8,15 +8,15 @@ WIDTH, HEIGHT = 1920, 1080
 FPS = 60
 TILE_SIZE = 60
 FOV = math.radians(60)
-HALF_FOV = FOV / 2# Half of 60 degrees
+HALF_FOV = FOV / 2 #pool FOV
 NUM_RAYS = 240
 MAX_DEPTH = 1000
-DELTA_ANGLE = (math.pi / 3) / NUM_RAYS  # FOV / number of rays
+DELTA_ANGLE = (math.pi / 3) / NUM_RAYS  # alg nurk
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
 PROJ_COEFF = 4 * DIST * TILE_SIZE
-SCALE = WIDTH // NUM_RAYS  # Width of each vertical strip
+SCALE = WIDTH // NUM_RAYS  # iga ray slici laius
 
-# Kaart
+# Kaart 1 - sein , . - floor
 MAP = [
     '11111111111111111111',
     '1............1.....1',
@@ -56,7 +56,7 @@ pygame.mixer.music.play(-1)  # Loop forever
 gunshot_sound = pygame.mixer.Sound("Lask.mp3")
 gunshot_sound.set_volume(0.7)
 
-# Load textures
+# Laadib Textuurid
 wall_texture = pygame.image.load('wall.jpeg').convert()
 gun_image = pygame.image.load("gun.png").convert_alpha()
 muzzle_flash = pygame.image.load("Flash.png").convert_alpha()
@@ -108,7 +108,7 @@ def shoot_ray(px, py, pa):
 
     #seinte leidmine raycasteriga
 def raycasting(sc, px, py, angle):
-    z_buffer = []  # 👈 Add this line at the start
+    z_buffer = []  # alsutab bufferi
 
     start_angle = angle - HALF_FOV
     for ray in range(NUM_RAYS):
@@ -179,7 +179,7 @@ def raycasting(sc, px, py, angle):
 
         screen.blit(tex_column, (ray * SCALE, HEIGHT // 2 - wall_height // 2))
 
-    return z_buffer  # 👈 Return the depth list at the end!
+    return z_buffer  #returnib Zbufferi
 
 
 def draw_minimap():
@@ -212,7 +212,7 @@ def draw_minimap():
 
             map_x, map_y = int(ray_x // TILE_SIZE), int(ray_y // TILE_SIZE)
             if 0 <= map_y < len(MAP) and 0 <= map_x < len(MAP[0]) and MAP[map_y][map_x] == '1':
-                # Draw ray hit
+
                 pygame.draw.line(screen, (255, 255, 0),
                                  (int(player_x * mini_scale), int(player_y * mini_scale)),
                                  (int(ray_x * mini_scale), int(ray_y * mini_scale)), 1)
@@ -221,7 +221,7 @@ def draw_minimap():
     # joonistab vastase mini kaardile
     for sprite in sprites:
         enemy_x, enemy_y = sprite["x"], sprite["y"]
-        # Convert enemy world position to minimap position
+
         mini_enemy_x = int(enemy_x * mini_scale)
         mini_enemy_y = int(enemy_y * mini_scale)
         pygame.draw.circle(screen, (0, 255, 0), (mini_enemy_x, mini_enemy_y), 4)
@@ -344,10 +344,10 @@ def main():
         #Ekraani algvärv
         screen.fill((100, 100, 100))
 
-        # Handle player input
+        # inputide handler
         handle_input()
 
-        # Handle shooting
+        # laskmise handler
         mouse_buttons = pygame.mouse.get_pressed()
         if mouse_buttons[0]:
             current_time = pygame.time.get_ticks()
